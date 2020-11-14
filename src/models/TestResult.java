@@ -1,17 +1,18 @@
 package models;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class TestResult {
     private final int id;
-    private final Test test;
+    private final int idTest;
+    private Test test;
     private final String person;
     private final Date date;
     private final int result;
 
-    public TestResult(int id, Test test, String person, Date date, int result) {
+    public TestResult(int id, int idTest, String person, Date date, int result) {
         this.id = id;
-        this.test = test;
+        this.idTest = idTest;
         this.person = person;
         this.date = date;
         this.result = result;
@@ -19,6 +20,10 @@ public class TestResult {
 
     public int getId() {
         return id;
+    }
+
+    public int getIdTest() {
+        return idTest;
     }
 
     public String getPerson() {
@@ -36,4 +41,9 @@ public class TestResult {
     public Test getTest() {
         return test;
     }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
 }
