@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountDaoImpl implements AccountDao {
+public class TestDaoImpl implements TestDao {
 
     private final DatabaseHandler databaseHandler = new DatabaseHandler();
 

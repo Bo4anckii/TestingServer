@@ -1,10 +1,17 @@
 package server;
 
+import com.google.gson.Gson;
+import models.Test;
+import server.db.TestDao;
+import server.db.TestDaoImpl;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequestHandler extends Thread {
 
@@ -13,6 +20,8 @@ public class RequestHandler extends Thread {
     private final RequestListener server;
     private DataInputStream reader;
     private DataOutputStream writer;
+    private final TestDao testDao = new TestDaoImpl();
+    private final Gson gson = new Gson();
 
     public RequestHandler(Socket socket, RequestListener server, long id) {
         this.socket = socket;
@@ -33,14 +42,13 @@ public class RequestHandler extends Thread {
                 try {
                     String data = reader.readUTF();
                     switch (data) {
-                        //Обработка разных запросов
+                        case "getTests": sendTests();
                     }
                 } catch (SocketException ex) {
                     socket.shutdownInput();
                     socket.shutdownOutput();
                     socket.close();
                     server.removeClient(this);
-                    System.err.println("Подключение " + id + " закрыто");
                 }
             }
             System.err.println("Подключение " + id + " закрыто");
@@ -52,5 +60,17 @@ public class RequestHandler extends Thread {
 
     public long getId() {
         return id;
+    }
+
+    private void sendTests() {
+        List<Test> tests = testDao.getTests();
+        try {
+            for (Test test : tests) {
+                writer.writeUTF(gson.toJson(test));
+            }
+            writer.writeUTF("end");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

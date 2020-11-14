@@ -1,15 +1,21 @@
 package client;
 
+import com.google.gson.Gson;
+import models.Test;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client extends Thread {
 
     private Socket socket;
     private DataInputStream reader;
     private DataOutputStream writer;
+    private final Gson gson = new Gson();
 
     public Client() {
         try {
@@ -25,23 +31,28 @@ public class Client extends Thread {
     @Override
     public void run() {
         try {
-            while (!socket.isClosed()) {
-                switch (reader.readUTF()) {
-                    //Обработка разных ответов сервера
-                }
-                reader.close();
-                writer.close();
-            }
+            while (!socket.isClosed()) {}
+            reader.close();
+            writer.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void testConnection() {
+    public List<Test> getTests() {
+        ArrayList<Test> tests = new ArrayList<>();
+        String data;
         try {
-            writer.writeUTF("test");
+            writer.writeUTF("getTests");
+            while (!(data=reader.readUTF()).equals("end")){
+                System.out.println("while: "+data);
+                tests.add(gson.fromJson(data, Test.class));
+            }
+            System.out.println(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return tests;
     }
+
 }

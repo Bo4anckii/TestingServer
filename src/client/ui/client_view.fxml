@@ -1,7 +1,21 @@
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="client.ui.ClientController"
-          prefHeight="400.0" prefWidth="600.0">
-</GridPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="520.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ui.ClientController">
+   <Button fx:id="addBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0"
+           text="Добавить" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0"/>
+   <Button fx:id="deleteBtn" layoutX="105.0" layoutY="15.0" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0"
+           prefWidth="120.0" text="Удалить" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="15.0"/>
+   <ListView fx:id="testList" layoutX="15.0" layoutY="40.0" prefHeight="200.0" prefWidth="255.0"
+             AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="55.0"/>
+   <Pane layoutX="287.0" layoutY="55.0" prefHeight="448.0" prefWidth="0.0" style="-fx-background-color: #DDD;"
+         AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="15.0"
+         AnchorPane.topAnchor="15.0"/>
+   <Button fx:id="testBtn" layoutX="15.0" layoutY="480.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0"
+           text="Пройти" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"/>
+   <Button fx:id="resultBtn" layoutX="158.0" layoutY="480.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0"
+           text="Результаты" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="150.0"/>
+</AnchorPane>

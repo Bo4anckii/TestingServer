@@ -16,7 +16,7 @@ public class Const {
     public static String QUESTION_VARIANT3 = "variant3";
     public static String QUESTION_VARIANT4 = "variant4";
     public static String QUESTION_CORRECT  = "correct";
-    public static String QUESTIONS_BY_TEST = "Select * From " + QUESTIONS_TABLE + " Where " + TEST_ID + " = ?";
+    public static String QUESTIONS_BY_TEST = "Select * From " + QUESTIONS_TABLE + " Where " + QUESTION_ID_TEST + " = ?";
     public static String QUESTION_POST     = "Insert into " + QUESTIONS_TABLE + " (" + QUESTION_ID_TEST + ", " +
                                              QUESTION_TEXT + ", " + QUESTION_VARIANT1 + ", " + QUESTION_VARIANT2 + ", " +
                                              QUESTION_VARIANT3 + ", " + QUESTION_VARIANT4 + ", " + QUESTION_CORRECT + ") Values(?,?,?,?,?,?,?)";
