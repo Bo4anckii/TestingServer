@@ -1,11 +1,11 @@
-package client.ui;
+package client.ui.main;
 
 import models.Question;
 import models.Test;
 
 import java.util.List;
 
-public class ClientModel {
+public class MainModel {
     private List<Test> tests;
     private Test currentTest;
     private Question currentQuestion;

@@ -1,21 +1,26 @@
-package client.ui;
+package client.ui.main;
 
 import client.Client;
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 import javafx.collections.FXCollections;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.Question;
 import models.Test;
 import models.TestResult;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ClientController implements Initializable {
+public class MainController implements Initializable {
 
     public Button addBtn;
     public Button deleteBtn;
@@ -36,7 +41,7 @@ public class ClientController implements Initializable {
     public Button forwardBtn;
 
     private final Client client = new Client();
-    private final ClientModel model = new ClientModel();
+    private final MainModel model = new MainModel();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,12 +49,8 @@ public class ClientController implements Initializable {
         model.setTests(client.getTests());
         testList.setItems(FXCollections.observableList(model.getTests()));
 
-        addBtn.setOnAction(event -> {
-
-        });
-        deleteBtn.setOnAction(event -> {
-
-        });
+        addBtn.setOnAction(event -> openAddForm());
+        deleteBtn.setOnAction(event -> {});
         testBtn.setOnAction(event -> {
             if (testList.getSelectionModel().getSelectedIndex() == -1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -67,28 +68,26 @@ public class ClientController implements Initializable {
             setQuestion(testList.getSelectionModel().getSelectedItem().getQuestions().get(0));
             testPane.setVisible(true);
         });
-        resultBtn.setOnAction(event -> {
-
-        });
+        resultBtn.setOnAction(event -> openResultsForm());
 
         var1RB.setOnAction(event -> {
             model.setAnswer(model.getCurrentQuestionIndex(), 1);
-            System.out.println("Question "+model.getCurrentQuestionIndex()+" = 1");
+            System.out.println("Question " + model.getCurrentQuestionIndex() + " = 1");
             checkAnswers();
         });
         var2RB.setOnAction(event -> {
             model.setAnswer(model.getCurrentQuestionIndex(), 2);
-            System.out.println("Question "+model.getCurrentQuestionIndex()+" = 2");
+            System.out.println("Question " + model.getCurrentQuestionIndex() + " = 2");
             checkAnswers();
         });
         var3RB.setOnAction(event -> {
             model.setAnswer(model.getCurrentQuestionIndex(), 3);
-            System.out.println("Question "+model.getCurrentQuestionIndex()+" = 3");
+            System.out.println("Question " + model.getCurrentQuestionIndex() + " = 3");
             checkAnswers();
         });
         var4RB.setOnAction(event -> {
             model.setAnswer(model.getCurrentQuestionIndex(), 4);
-            System.out.println("Question "+model.getCurrentQuestionIndex()+" = 4");
+            System.out.println("Question " + model.getCurrentQuestionIndex() + " = 4");
             checkAnswers();
         });
         backBtn.setOnAction(event -> {
@@ -131,7 +130,7 @@ public class ClientController implements Initializable {
             testPane.setVisible(false);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание");
-            alert.setHeaderText("Тест пройден ("+percent+"%)");
+            alert.setHeaderText("Тест пройден (" + percent + "%)");
             alert.showAndWait();
         });
     }
@@ -156,5 +155,37 @@ public class ClientController implements Initializable {
             }
         }
         doneBtn.setVisible(true);
+    }
+
+    private void openAddForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/add_view.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Создание теста");
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void openResultsForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/results_view.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Результаты");
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
