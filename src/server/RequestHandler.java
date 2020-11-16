@@ -2,6 +2,7 @@ package server;
 
 import com.google.gson.Gson;
 import models.Test;
+import models.TestResult;
 import server.db.TestDao;
 import server.db.TestDaoImpl;
 
@@ -42,7 +43,8 @@ public class RequestHandler extends Thread {
                 try {
                     String data = reader.readUTF();
                     switch (data) {
-                        case "getTests": sendTests();
+                        case "getTests": sendTests(); break;
+                        case "result": getResult(); break;
                     }
                 } catch (SocketException ex) {
                     socket.shutdownInput();
@@ -69,6 +71,15 @@ public class RequestHandler extends Thread {
                 writer.writeUTF(gson.toJson(test));
             }
             writer.writeUTF("end");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getResult() {
+        try {
+            TestResult result = gson.fromJson(reader.readUTF(), TestResult.class);
+            testDao.postResult(result);
         } catch (IOException e) {
             e.printStackTrace();
         }

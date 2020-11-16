@@ -4,61 +4,44 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="520.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ui.ClientController">
-    <Button fx:id="addBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0"
-            text="Добавить" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0"/>
-    <Button fx:id="deleteBtn" layoutX="105.0" layoutY="15.0" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0"
-            prefWidth="120.0" text="Удалить" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="15.0"/>
-    <ListView fx:id="testList" layoutX="15.0" layoutY="40.0" prefHeight="200.0" prefWidth="255.0"
-              AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="55.0"/>
-    <AnchorPane fx:id="testPane" layoutX="287.0" layoutY="55.0" prefHeight="448.0" prefWidth="0.0"
-                style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="285.0"
-                AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-        <Label fx:id="questionLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0"
-               minHeight="150.0" style="-fx-background-color: #DDD;" text="Текст вопроса" textAlignment="CENTER"
-               wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
-               AnchorPane.topAnchor="15.0">
+<AnchorPane prefHeight="520.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ui.ClientController">
+    <Button fx:id="addBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Добавить" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+    <Button fx:id="deleteBtn" layoutX="105.0" layoutY="15.0" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Удалить" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="15.0" />
+    <ListView fx:id="testList" layoutX="15.0" layoutY="40.0" prefHeight="200.0" prefWidth="255.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="55.0" />
+    <AnchorPane fx:id="testPane" layoutX="287.0" layoutY="56.0" prefHeight="449.0" prefWidth="620.0" style="-fx-background-color: #EEE;" visible="false" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="55.0">
+        <Label fx:id="questionLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" minHeight="150.0" style="-fx-background-color: #DDD;" text="Текст вопроса" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
             <font>
-                <Font size="14.0"/>
+                <Font size="14.0" />
             </font>
         </Label>
-        <Button fx:id="backBtn" layoutX="14.0" layoutY="451.0" mnemonicParsing="false" prefWidth="50.0"
-                text="&lt;&lt;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"/>
-        <Button fx:id="forwardBtn" layoutX="554.0" layoutY="450.0" mnemonicParsing="false" prefWidth="50.0"
-                text="&gt;&gt;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
-        <Button fx:id="doneBtn" layoutX="250.0" layoutY="450.0" mnemonicParsing="false" prefWidth="120.0"
-                text="Готово" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="250.0"
-                AnchorPane.rightAnchor="250.0"/>
+        <Button fx:id="backBtn" disable="true" layoutX="14.0" layoutY="451.0" mnemonicParsing="false" prefWidth="50.0" text="&lt;&lt;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+        <Button fx:id="forwardBtn" layoutX="554.0" layoutY="450.0" mnemonicParsing="false" prefWidth="50.0" text="&gt;&gt;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+        <Button fx:id="doneBtn" layoutX="250.0" layoutY="450.0" mnemonicParsing="false" prefWidth="120.0" text="Готово" visible="false" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
 
-        <RadioButton fx:id="var1RB" layoutX="40.0" layoutY="156.0" mnemonicParsing="false" text="Вариант ответа 1"
-                     AnchorPane.topAnchor="220.0">
+        <RadioButton fx:id="var1RB" layoutX="40.0" layoutY="156.0" mnemonicParsing="false" text="Вариант ответа 1" AnchorPane.topAnchor="220.0">
             <toggleGroup>
-                <ToggleGroup fx:id="variants"/>
+                <ToggleGroup fx:id="variants" />
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="var2RB" layoutX="40.0" layoutY="198.0" mnemonicParsing="false" text="Вариант ответа 2"
-                     AnchorPane.topAnchor="260.0">
+        <RadioButton fx:id="var2RB" layoutX="40.0" layoutY="198.0" mnemonicParsing="false" text="Вариант ответа 2" AnchorPane.topAnchor="260.0">
             <toggleGroup>
-                <fx:reference source="variants"/>
+                <fx:reference source="variants" />
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="var3RB" layoutX="40.0" layoutY="237.0" mnemonicParsing="false" text="Вариант ответа 3"
-                     AnchorPane.topAnchor="300.0">
+        <RadioButton fx:id="var3RB" layoutX="40.0" layoutY="237.0" mnemonicParsing="false" text="Вариант ответа 3" AnchorPane.topAnchor="300.0">
             <toggleGroup>
-                <fx:reference source="variants"/>
+                <fx:reference source="variants" />
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="var4RB" layoutX="40.0" layoutY="276.0" mnemonicParsing="false" text="Вариант ответа 4"
-                     AnchorPane.topAnchor="340.0">
+        <RadioButton fx:id="var4RB" layoutX="40.0" layoutY="276.0" mnemonicParsing="false" text="Вариант ответа 4" AnchorPane.topAnchor="340.0">
             <toggleGroup>
-                <fx:reference source="variants"/>
+                <fx:reference source="variants" />
             </toggleGroup>
         </RadioButton>
 
     </AnchorPane>
-    <Button fx:id="testBtn" layoutX="15.0" layoutY="480.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0"
-            text="Пройти" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"/>
-    <Button fx:id="resultBtn" layoutX="158.0" layoutY="480.0" mnemonicParsing="false" prefHeight="25.0"
-            prefWidth="120.0" text="Результаты" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="150.0"/>
+    <Button fx:id="testBtn" layoutX="15.0" layoutY="480.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Пройти" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+    <Button fx:id="resultBtn" layoutX="158.0" layoutY="480.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Результаты" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="150.0" />
+   <TextField fx:id="fioTF" layoutX="285.0" layoutY="15.0" prefHeight="25.0" prefWidth="620.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+   <Label layoutX="285.0" layoutY="19.0" prefHeight="25.0" prefWidth="30.0" text="ФИО" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="15.0" />
 </AnchorPane>

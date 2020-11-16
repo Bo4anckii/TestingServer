@@ -2,6 +2,7 @@ package client;
 
 import com.google.gson.Gson;
 import models.Test;
+import models.TestResult;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -45,14 +46,23 @@ public class Client extends Thread {
         try {
             writer.writeUTF("getTests");
             while (!(data=reader.readUTF()).equals("end")){
-                System.out.println("while: "+data);
+                System.out.println("Received: " + data);
                 tests.add(gson.fromJson(data, Test.class));
             }
-            System.out.println(data);
+            System.out.println("Received: " + data);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return tests;
     }
 
+    public void postResult(TestResult result) {
+        try {
+            writer.writeUTF("result");
+            writer.writeUTF(gson.toJson(result));
+            System.out.println("Sent: "+gson.toJson(result));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
