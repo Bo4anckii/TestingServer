@@ -3,17 +3,17 @@ package models;
 import java.util.List;
 
 public class Test {
-    private final int id;
+    private final long id;
     private final List<Question> questions;
     private final String subject;
 
-    public Test(int id, List<Question> questions, String subject) {
+    public Test(long id, List<Question> questions, String subject) {
         this.id = id;
         this.questions = questions;
         this.subject = subject;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -23,5 +23,10 @@ public class Test {
 
     public String getSubject() {
         return subject;
+    }
+
+    @Override
+    public String toString() {
+        return subject+" ("+questions.size()+")";
     }
 }

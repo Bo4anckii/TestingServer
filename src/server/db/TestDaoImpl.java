@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountDaoImpl implements AccountDao {
+public class TestDaoImpl implements TestDao {
 
     private final DatabaseHandler databaseHandler = new DatabaseHandler();
 
@@ -70,10 +70,22 @@ public class AccountDaoImpl implements AccountDao {
             ex.printStackTrace();
             return;
         }
+        long test_id;
+        try (
+                Statement statement = databaseHandler.getConnection().createStatement();
+                ResultSet set = statement.executeQuery(Const.TEST_MAX_ID)
+        ) {
+            if(set.next()){
+                test_id = set.getLong("max_id");
+            } else return;
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            return;
+        }
         for (Question question : test.getQuestions()) {
             try {
                 PreparedStatement statement = databaseHandler.getConnection().prepareStatement(Const.QUESTION_POST);
-                statement.setInt(1, question.getIdTest());
+                statement.setLong(1, test_id);
                 statement.setString(2, question.getText());
                 statement.setString(3, question.getVariant1());
                 statement.setString(4, question.getVariant2());
@@ -91,7 +103,7 @@ public class AccountDaoImpl implements AccountDao {
     public void postResult(TestResult result) {
         try {
             PreparedStatement statement = databaseHandler.getConnection().prepareStatement(Const.RESULT_POST);
-            statement.setInt(1, result.getIdTest());
+            statement.setLong(1, result.getIdTest());
             statement.setString(2, result.getPerson());
             statement.setDate(3, result.getDate());
             statement.setInt(4, result.getResult());
@@ -101,10 +113,10 @@ public class AccountDaoImpl implements AccountDao {
         }
     }
 
-    private List<Question> getTestQuestions(int idTest) {
+    private List<Question> getTestQuestions(long idTest) {
         ArrayList<Question> questions = new ArrayList<>();
         try (PreparedStatement statement = databaseHandler.getConnection().prepareStatement(Const.QUESTIONS_BY_TEST)) {
-            statement.setInt(1, idTest);
+            statement.setLong(1, idTest);
             ResultSet set = statement.executeQuery();
             while (set.next()) {
                 questions.add(new Question(
@@ -124,7 +136,7 @@ public class AccountDaoImpl implements AccountDao {
         return questions;
     }
 
-    private Test getTest(int id) {
+    private Test getTest(long id) {
         Test test = null;
         String command = "Select Top 1 * From " + Const.TESTS_TABLE + " Where " + Const.TEST_ID + " = " + id;
         try (

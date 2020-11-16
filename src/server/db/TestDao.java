@@ -5,7 +5,7 @@ import models.TestResult;
 
 import java.util.List;
 
-public interface AccountDao {
+public interface TestDao {
 
     List<Test> getTests();
 

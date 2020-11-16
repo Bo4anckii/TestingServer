@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ui.add.AddController">
+    <AnchorPane fx:id="initialPane" layoutX="15.0" layoutY="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+        <Label prefWidth="30.0" text="Тема" />
+        <TextField fx:id="subjectTF" layoutX="105.0" prefHeight="25.0" prefWidth="465.0" />
+        <Label layoutY="45.0" prefWidth="100.0" text="Кол-во вопросов" />
+        <Spinner fx:id="amountSpinner" amountToStepBy="1" layoutX="105.0" layoutY="45.0" prefHeight="25.0" prefWidth="80.0">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory max="100" min="1" />
+            </valueFactory>
+        </Spinner>
+        <Button fx:id="startBtn" layoutX="200.0" layoutY="45.0" mnemonicParsing="false" text="Начать создание" />
+    </AnchorPane>
+    <AnchorPane fx:id="testPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TextArea fx:id="questionText" promptText="Текст вопроса" wrapText="true" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextArea>
+        <Button fx:id="backBtn" disable="true" layoutY="345.0" mnemonicParsing="false" prefWidth="50.0" text="&lt;&lt;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+        <Button fx:id="forwardBtn" layoutX="520.0" layoutY="345.0" mnemonicParsing="false" prefWidth="50.0" text="&gt;&gt;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+        <Button fx:id="doneBtn" layoutX="235.0" layoutY="345.0" mnemonicParsing="false" text="Готово" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0" />
+        <TextField fx:id="var1TF" layoutY="185.0" promptText="Вариант ответа 1" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="185.0" />
+        <TextField fx:id="var2TF" layoutY="225.0" promptText="Вариант ответа 2" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="225.0" />
+        <TextField fx:id="var3TF" layoutY="265.0" promptText="Вариант ответа 3" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="265.0" />
+        <TextField fx:id="var4TF" layoutY="305.0" promptText="Вариант ответа 4" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="305.0" />
+        <Label layoutX="445.0" layoutY="185.0" text="Правильный" AnchorPane.rightAnchor="70.0" />
+        <TextField fx:id="correctTF" layoutX="520.0" layoutY="185.0" prefHeight="25.0" prefWidth="50.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="185.0" />
+    </AnchorPane>
+</AnchorPane>

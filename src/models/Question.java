@@ -1,16 +1,16 @@
 package models;
 
 public class Question {
-    private final int id;
-    private final int idTest;
-    private final String text;
-    private final String variant1;
-    private final String variant2;
-    private final String variant3;
-    private final String variant4;
-    private final int correct;
+    private final long id;
+    private final long idTest;
+    private String text;
+    private String variant1;
+    private String variant2;
+    private String variant3;
+    private String variant4;
+    private int correct;
 
-    public Question(int id, int idTest, String text, String variant1, String variant2, String variant3, String variant4, int correct) {
+    public Question(long id, long idTest, String text, String variant1, String variant2, String variant3, String variant4, int correct) {
         this.id = id;
         this.idTest = idTest;
         this.text = text;
@@ -45,12 +45,35 @@ public class Question {
         return correct;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public int getIdTest() {
+    public long getIdTest() {
         return idTest;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setVariant1(String variant1) {
+        this.variant1 = variant1;
+    }
+
+    public void setVariant2(String variant2) {
+        this.variant2 = variant2;
+    }
+
+    public void setVariant3(String variant3) {
+        this.variant3 = variant3;
+    }
+
+    public void setVariant4(String variant4) {
+        this.variant4 = variant4;
+    }
+
+    public void setCorrect(int correct) {
+        this.correct = correct;
+    }
 }
