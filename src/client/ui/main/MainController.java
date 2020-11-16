@@ -1,6 +1,7 @@
 package client.ui.main;
 
 import client.Client;
+import client.ui.add.AddController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -167,11 +168,11 @@ public class MainController implements Initializable {
             stage.setScene(new Scene(root, 600, 400));
             stage.setResizable(false);
             stage.show();
+            AddController children = loader.getController();
+            children.setParent(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void openResultsForm() {

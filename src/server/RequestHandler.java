@@ -43,8 +43,15 @@ public class RequestHandler extends Thread {
                 try {
                     String data = reader.readUTF();
                     switch (data) {
-                        case "getTests": sendTests(); break;
-                        case "result": getResult(); break;
+                        case "getTests":
+                            sendTests();
+                            break;
+                        case "result":
+                            getResult();
+                            break;
+                        case "test":
+                            getTest();
+                            break;
                     }
                 } catch (SocketException ex) {
                     socket.shutdownInput();
@@ -55,7 +62,6 @@ public class RequestHandler extends Thread {
             }
             System.err.println("Подключение " + id + " закрыто");
         } catch (IOException ex) {
-
             ex.printStackTrace();
         }
     }
@@ -71,6 +77,15 @@ public class RequestHandler extends Thread {
                 writer.writeUTF(gson.toJson(test));
             }
             writer.writeUTF("end");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getTest() {
+        try {
+            Test test = gson.fromJson(reader.readUTF(), Test.class);
+            testDao.postTest(test);
         } catch (IOException e) {
             e.printStackTrace();
         }

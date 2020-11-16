@@ -45,7 +45,7 @@ public class Client extends Thread {
         String data;
         try {
             writer.writeUTF("getTests");
-            while (!(data=reader.readUTF()).equals("end")){
+            while (!(data = reader.readUTF()).equals("end")) {
                 System.out.println("Received: " + data);
                 tests.add(gson.fromJson(data, Test.class));
             }
@@ -56,11 +56,21 @@ public class Client extends Thread {
         return tests;
     }
 
+    public void postTest(Test test) {
+        try {
+            writer.writeUTF("test");
+            writer.writeUTF(gson.toJson(test));
+            System.out.println("Sent: " + gson.toJson(test));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void postResult(TestResult result) {
         try {
             writer.writeUTF("result");
             writer.writeUTF(gson.toJson(result));
-            System.out.println("Sent: "+gson.toJson(result));
+            System.out.println("Sent: " + gson.toJson(result));
         } catch (IOException e) {
             e.printStackTrace();
         }
