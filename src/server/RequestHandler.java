@@ -74,42 +74,52 @@ public class RequestHandler extends Thread {
     }
 
     private void sendTests() {
+        System.out.println("Received: getTests");
         List<Test> tests = testDao.getTests();
         try {
             for (Test test : tests) {
                 writer.writeUTF(gson.toJson(test));
+                System.out.println("Sent: "+gson.toJson(test));
             }
             writer.writeUTF("end");
+            System.out.println("Sent: end");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void sendResults() {
+        System.out.println("Received: getResults");
         List<TestResult> results = testDao.getResults();
         try {
             for (TestResult result : results) {
                 writer.writeUTF(gson.toJson(result));
+                System.out.println("Sent: "+gson.toJson(result));
             }
             writer.writeUTF("end");
+            System.out.println("Sent: end");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void getTest() {
+        System.out.println("Received: test");
         try {
             Test test = gson.fromJson(reader.readUTF(), Test.class);
             testDao.postTest(test);
+            System.out.println("Test has been written to the DB");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void getResult() {
+        System.out.println("Received: result");
         try {
             TestResult result = gson.fromJson(reader.readUTF(), TestResult.class);
             testDao.postResult(result);
+            System.out.println("Result has been written to the DB");
         } catch (IOException e) {
             e.printStackTrace();
         }
