@@ -7,6 +7,7 @@ public class Const {
     public static String TESTS_GET_ALL     = "Select * From " + TESTS_TABLE;
     public static String TEST_POST         = "Insert into " + TESTS_TABLE + " (" + TEST_SUBJECT + ") Values(?)";
     public static String TEST_MAX_ID       = "Select MAX(" + TEST_ID + ") max_id FROM " + TESTS_TABLE;
+    public static String TEST_DELETE       = "Delete From "+ TESTS_TABLE + " Where id = ?";
 
     public static String QUESTIONS_TABLE   = "questions";
     public static String QUESTION_ID       = "id";

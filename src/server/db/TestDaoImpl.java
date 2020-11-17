@@ -113,6 +113,17 @@ public class TestDaoImpl implements TestDao {
         }
     }
 
+    @Override
+    public void deleteTest(String id) {
+        try {
+            PreparedStatement statement = databaseHandler.getConnection().prepareStatement(Const.TEST_DELETE);
+            statement.setLong(1, Long.parseLong(id));
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private List<Question> getTestQuestions(long idTest) {
         ArrayList<Question> questions = new ArrayList<>();
         try (PreparedStatement statement = databaseHandler.getConnection().prepareStatement(Const.QUESTIONS_BY_TEST)) {

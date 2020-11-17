@@ -55,6 +55,8 @@ public class RequestHandler extends Thread {
                         case "result":
                             getResult();
                             break;
+                        case "deleteTest":
+                            deleteTest();
                     }
                 } catch (SocketException ex) {
                     socket.shutdownInput();
@@ -121,6 +123,15 @@ public class RequestHandler extends Thread {
             testDao.postResult(result);
             System.out.println("Result has been written to the DB");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteTest() {
+        System.out.println("Received: deleteTest");
+        try {
+            testDao.deleteTest(reader.readUTF());
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

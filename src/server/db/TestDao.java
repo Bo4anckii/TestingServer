@@ -14,4 +14,6 @@ public interface TestDao {
     void postTest(Test test);
 
     void postResult(TestResult result);
+
+    void deleteTest(String id);
 }

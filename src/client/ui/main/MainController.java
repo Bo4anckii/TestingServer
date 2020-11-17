@@ -51,7 +51,7 @@ public class MainController implements Initializable {
         testList.setItems(FXCollections.observableList(model.getTests()));
 
         addBtn.setOnAction(event -> openAddForm());
-        deleteBtn.setOnAction(event -> {});
+        deleteBtn.setOnAction(event -> deleteTest());
         testBtn.setOnAction(event -> {
             if (testList.getSelectionModel().getSelectedIndex() == -1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -188,5 +188,16 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void deleteTest() {
+        if (testList.getSelectionModel().getSelectedIndex() == -1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание");
+            alert.setHeaderText("Сначала выберите тест");
+            alert.showAndWait();
+            return;
+        }
+        client.deleteTest(testList.getSelectionModel().getSelectedItem().getId());
     }
 }

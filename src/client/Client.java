@@ -92,4 +92,13 @@ public class Client extends Thread {
             e.printStackTrace();
         }
     }
+
+    public void deleteTest(long id) {
+        try {
+            writer.writeUTF("deleteTest");
+            writer.writeUTF(String.valueOf(id));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }
