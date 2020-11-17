@@ -1,0 +1,60 @@
+@startuml
+
+title __Диаграмма классов Модели__\n
+
+  namespace models {
+      class models.Question {
+              - correct : int
+              - id : long
+              - idTest : long
+              - text : String
+              - variant1 : String
+              - variant2 : String
+              - variant3 : String
+              - variant4 : String
+              + Question()
+              + getCorrect()
+              + getId()
+              + getIdTest()
+              + getText()
+              + getVariant1()
+              + getVariant2()
+              + getVariant3()
+              + getVariant4()
+              + setCorrect()
+              + setText()
+              + setVariant1()
+              + setVariant2()
+              + setVariant3()
+              + setVariant4()
+      }
+      class models.Test {
+              - id : long
+              - questions : List<Question>
+              - subject : String
+              + Test()
+              + getId()
+              + getQuestions()
+              + getSubject()
+              + toString()
+      }
+      class models.TestResult {
+              - date : Date
+              - id : long
+              - idTest : long
+              - person : String
+              - result : int
+              + TestResult()
+              + getDate()
+              + getId()
+              + getIdTest()
+              + getPerson()
+              + getResult()
+              + getTest()
+              + setTest()
+      }
+    }
+  
+
+  models.TestResult o-- models.Test : test
+@enduml
