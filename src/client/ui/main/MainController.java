@@ -182,7 +182,7 @@ public class MainController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Результаты");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, 800, 400));
             stage.setResizable(false);
             stage.show();
         } catch (IOException e) {

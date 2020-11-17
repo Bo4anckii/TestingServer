@@ -32,7 +32,8 @@ public class Client extends Thread {
     @Override
     public void run() {
         try {
-            while (!socket.isClosed()) {}
+            while (!socket.isClosed()) {
+            }
             reader.close();
             writer.close();
         } catch (IOException ex) {
@@ -64,6 +65,22 @@ public class Client extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<TestResult> getResults() {
+        ArrayList<TestResult> results = new ArrayList<>();
+        String data;
+        try {
+            writer.writeUTF("getResults");
+            while (!(data = reader.readUTF()).equals("end")) {
+                System.out.println("Received: "+data);
+                results.add(gson.fromJson(data, TestResult.class));
+            }
+            System.out.println("Received: "+data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
     public void postResult(TestResult result) {

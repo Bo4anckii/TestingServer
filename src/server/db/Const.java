@@ -28,6 +28,7 @@ public class Const {
     public static String RESULT_PERSON     = "person";
     public static String RESULT_DATE       = "date";
     public static String RESULT_RESULT     = "result";
+    public static String RESULTS_GET_ALL   = "Select * From " + RESULTS_TABLE;
     public static String RESULT_POST       = "Insert into " + RESULTS_TABLE + " (" + RESULT_ID_TEST + ", " +
                                              RESULT_PERSON + ", " + RESULT_DATE + ", " + RESULT_RESULT + ") Values(?,?,?,?)";
 }

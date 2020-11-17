@@ -40,12 +40,12 @@ public class TestDaoImpl implements TestDao {
         ArrayList<TestResult> results = new ArrayList<>();
         try (
                 Statement statement = databaseHandler.getConnection().createStatement();
-                ResultSet set = statement.executeQuery(Const.TESTS_GET_ALL)
+                ResultSet set = statement.executeQuery(Const.RESULTS_GET_ALL)
         ) {
             while (set.next()) {
                 results.add(new TestResult(
-                        set.getInt(Const.RESULT_ID),
-                        set.getInt(Const.RESULT_ID_TEST),
+                        set.getLong(Const.RESULT_ID),
+                        set.getLong(Const.RESULT_ID_TEST),
                         set.getString(Const.RESULT_PERSON),
                         set.getDate(Const.RESULT_DATE),
                         set.getInt(Const.RESULT_RESULT)
@@ -138,16 +138,18 @@ public class TestDaoImpl implements TestDao {
 
     private Test getTest(long id) {
         Test test = null;
-        String command = "Select Top 1 * From " + Const.TESTS_TABLE + " Where " + Const.TEST_ID + " = " + id;
+        String command = "Select * From " + Const.TESTS_TABLE + " Where " + Const.TEST_ID + " = " + id;
         try (
                 Statement statement = databaseHandler.getConnection().createStatement();
                 ResultSet set = statement.executeQuery(command)
         ) {
-            test = new Test(
-                    set.getInt(Const.TEST_ID),
-                    new ArrayList<>(),
-                    set.getString(Const.TEST_SUBJECT)
-            );
+            while (set.next()){
+                test = new Test(
+                        set.getInt(Const.TEST_ID),
+                        new ArrayList<>(),
+                        set.getString(Const.TEST_SUBJECT)
+                );
+            }
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
