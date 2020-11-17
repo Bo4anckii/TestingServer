@@ -46,11 +46,14 @@ public class RequestHandler extends Thread {
                         case "getTests":
                             sendTests();
                             break;
-                        case "result":
-                            getResult();
+                        case "getResults":
+                            sendResults();
                             break;
                         case "test":
                             getTest();
+                            break;
+                        case "result":
+                            getResult();
                             break;
                     }
                 } catch (SocketException ex) {
@@ -75,6 +78,18 @@ public class RequestHandler extends Thread {
         try {
             for (Test test : tests) {
                 writer.writeUTF(gson.toJson(test));
+            }
+            writer.writeUTF("end");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendResults() {
+        List<TestResult> results = testDao.getResults();
+        try {
+            for (TestResult result : results) {
+                writer.writeUTF(gson.toJson(result));
             }
             writer.writeUTF("end");
         } catch (IOException e) {

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="client.ui.results.ResultsController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ui.results.ResultsController">
+    <TableView fx:id="table" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="resultPerson" prefWidth="280.0" resizable="false" text="Тестируемый" />
+            <TableColumn fx:id="resultTest" minWidth="0.0" prefWidth="280.0" resizable="false" text="Тест" />
+            <TableColumn fx:id="resultResult" resizable="false" text="Результат" />
+            <TableColumn fx:id="resultDate" prefWidth="160.0" resizable="false" text="Дата" />
+        </columns>
+    </TableView>
 </AnchorPane>
