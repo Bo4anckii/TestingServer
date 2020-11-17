@@ -1,0 +1,332 @@
+@startuml
+
+title __Диаграмма классов Тестирующая Система__\n
+
+  namespace server {
+      class server.Main {
+          {static} + main()
+      }
+      class server.RequestHandler {
+              - gson : Gson
+              - id : long
+              - reader : DataInputStream
+              - socket : Socket
+              - writer : DataOutputStream
+              + RequestHandler()
+              + getId()
+              + run()
+              - getResult()
+              - getTest()
+              - sendResults()
+              - sendTests()
+      }
+      class server.RequestListener {
+              - clients : ArrayList<RequestHandler>
+              - socket : ServerSocket
+              + RequestListener()
+              + removeClient()
+              + run()
+              - makeID()
+      }
+      namespace db {
+        class server.db.Configs {
+                # dbHost : String
+                # dbName : String
+                # dbPass : String
+                # dbPort : String
+                # dbUser : String
+        }
+        class server.db.Const {
+                  {static} + QUESTIONS_BY_TEST : String
+                  {static} + QUESTIONS_TABLE : String
+                  {static} + QUESTION_CORRECT : String
+                  {static} + QUESTION_ID : String
+                  {static} + QUESTION_ID_TEST : String
+                  {static} + QUESTION_POST : String
+                  {static} + QUESTION_TEXT : String
+                  {static} + QUESTION_VARIANT1 : String
+                  {static} + QUESTION_VARIANT2 : String
+                  {static} + QUESTION_VARIANT3 : String
+                  {static} + QUESTION_VARIANT4 : String
+                  {static} + RESULTS_GET_ALL : String
+                  {static} + RESULTS_TABLE : String
+                  {static} + RESULT_DATE : String
+                  {static} + RESULT_ID : String
+                  {static} + RESULT_ID_TEST : String
+                  {static} + RESULT_PERSON : String
+                  {static} + RESULT_POST : String
+                  {static} + RESULT_RESULT : String
+                  {static} + TESTS_GET_ALL : String
+                  {static} + TESTS_TABLE : String
+                  {static} + TEST_ID : String
+                  {static} + TEST_MAX_ID : String
+                  {static} + TEST_POST : String
+                  {static} + TEST_SUBJECT : String
+        }
+        class server.db.DatabaseHandler {
+          + getConnection()
+        }
+        interface server.db.TestDao {
+                  {abstract} + getResults()
+                  {abstract} + getTests()
+                  {abstract} + postResult()
+                  {abstract} + postTest()
+        }
+        class server.db.TestDaoImpl {
+                  + getResults()
+                  + getTests()
+                  + postResult()
+                  + postTest()
+                  - getTest()
+                  - getTestQuestions()
+        }
+      }
+    }
+
+    namespace client {
+        class client.Main {
+          {static} + main()
+          + start()
+        }
+        class client.Client {
+          - gson : Gson
+          - reader : DataInputStream
+          - socket : Socket
+          - writer : DataOutputStream
+          + Client()
+          + getResults()
+          + getTests()
+          + postResult()
+          + postTest()
+          + run()
+        }
+        namespace ui {
+          namespace add {
+            class client.ui.add.AddController {
+              + amountSpinner : Spinner<Integer>
+              + backBtn : Button
+              + correctTF : TextField
+              + doneBtn : Button
+              + forwardBtn : Button
+              + initialPane : AnchorPane
+              + questionText : TextArea
+              + startBtn : Button
+              + subjectTF : TextField
+              + testPane : AnchorPane
+              + var1TF : TextField
+              + var2TF : TextField
+              + var3TF : TextField
+              + var4TF : TextField
+              + initialize()
+              + setParent()
+              - checkDataFullness()
+              - initData()
+              - refreshTestListView()
+              - setQuestion()
+            }
+            class client.ui.add.AddModel {
+              - currentQuestionIndex : int
+              - numberOfQuestions : int
+              - questionList : List<Question>
+              - subject : String
+              - testId : long
+              + getCurrentQuestionIndex()
+              + getNumberOfQuestions()
+              + getQuestionList()
+              + getSubject()
+              + getTestId()
+              + setCurrentQuestionIndex()
+              + setNumberOfQuestions()
+              + setQuestionList()
+              + setSubject()
+              + setTestId()
+            }
+          }
+          namespace main {
+            class client.ui.main.MainController {
+                + addBtn : Button
+                + backBtn : Button
+                + deleteBtn : Button
+                + doneBtn : Button
+                + fioTF : TextField
+                + forwardBtn : Button
+                + questionLabel : Label
+                + resultBtn : Button
+                + testBtn : Button
+                + testList : ListView<Test>
+                + testPane : AnchorPane
+                + var1RB : RadioButton
+                + var2RB : RadioButton
+                + var3RB : RadioButton
+                + var4RB : RadioButton
+                + variants : ToggleGroup
+                + initialize()
+                - checkAnswers()
+                - openAddForm()
+                - openResultsForm()
+                - setQuestion()
+            }
+            class client.ui.main.MainModel {
+                - answers : List<Integer>
+                - currentQuestionIndex : int
+                - tests : List<Test>
+                + getAnswers()
+                + getCurrentQuestion()
+                + getCurrentQuestionIndex()
+                + getCurrentTest()
+                + getTests()
+                + setAnswer()
+                + setAnswers()
+                + setCurrentQuestion()
+                + setCurrentQuestionIndex()
+                + setCurrentTest()
+                + setTests()
+            }
+          }
+          namespace results {
+            class client.ui.results.ResultsController {
+                + resultDate : TableColumn<TestResult, Date>
+                + resultPerson : TableColumn<TestResult, String>
+                + resultResult : TableColumn<TestResult, Integer>
+                + resultTest : TableColumn<TestResult, Test>
+                + table : TableView<TestResult>
+                + initialize()
+                - initTable()
+                - updateData()
+            }
+            class client.ui.results.ResultsModel {
+                      - results : List<TestResult>
+                      + getResults()
+                      + setResults()
+            }
+          }
+        }
+      }
+      namespace models {
+        class models.Question {
+                - correct : int
+                - id : long
+                - idTest : long
+                - text : String
+                - variant1 : String
+                - variant2 : String
+                - variant3 : String
+                - variant4 : String
+                + Question()
+                + getCorrect()
+                + getId()
+                + getIdTest()
+                + getText()
+                + getVariant1()
+                + getVariant2()
+                + getVariant3()
+                + getVariant4()
+                + setCorrect()
+                + setText()
+                + setVariant1()
+                + setVariant2()
+                + setVariant3()
+                + setVariant4()
+        }
+        class models.Test {
+                - id : long
+                - questions : List<Question>
+                - subject : String
+                + Test()
+                + getId()
+                + getQuestions()
+                + getSubject()
+                + toString()
+        }
+        class models.TestResult {
+                - date : Date
+                - id : long
+                - idTest : long
+                - person : String
+                - result : int
+                + TestResult()
+                + getDate()
+                + getId()
+                + getIdTest()
+                + getPerson()
+                + getResult()
+                + getTest()
+                + setTest()
+        }
+      }
+
+    namespace models {
+          class models.Question {
+                  - correct : int
+                  - id : long
+                  - idTest : long
+                  - text : String
+                  - variant1 : String
+                  - variant2 : String
+                  - variant3 : String
+                  - variant4 : String
+                  + Question()
+                  + getCorrect()
+                  + getId()
+                  + getIdTest()
+                  + getText()
+                  + getVariant1()
+                  + getVariant2()
+                  + getVariant3()
+                  + getVariant4()
+                  + setCorrect()
+                  + setText()
+                  + setVariant1()
+                  + setVariant2()
+                  + setVariant3()
+                  + setVariant4()
+          }
+          class models.Test {
+                  - id : long
+                  - questions : List<Question>
+                  - subject : String
+                  + Test()
+                  + getId()
+                  + getQuestions()
+                  + getSubject()
+                  + toString()
+          }
+          class models.TestResult {
+                  - date : Date
+                  - id : long
+                  - idTest : long
+                  - person : String
+                  - result : int
+                  + TestResult()
+                  + getDate()
+                  + getId()
+                  + getIdTest()
+                  + getPerson()
+                  + getResult()
+                  + getTest()
+                  + setTest()
+          }
+    }
+
+    client.Main -up-|> Application
+    client.ui.add.AddController .up.|> Initializable
+    client.ui.main.MainController .up.|> Initializable
+    client.ui.results.ResultsController .up.|> Initializable
+    client.ui.add.AddController o-- client.Client : client
+    client.ui.main.MainController o-- client.Client : client
+    client.ui.add.AddController o-- client.ui.add.AddModel : model
+    client.ui.add.AddController o-- client.ui.main.MainController : parent
+    client.ui.main.MainController o-- client.ui.main.MainModel : model
+    client.ui.main.MainModel o-- models.Question : currentQuestion
+    client.ui.main.MainModel o-- models.Test : currentTest
+    client.ui.results.ResultsController o-- client.Client : client
+    client.ui.results.ResultsController o-- client.ui.results.ResultsModel : model
+    models.TestResult o-- models.Test : test
+    server.Main  o-- server.RequestListener : server
+    server.RequestHandler o-- server.RequestListener : server
+    server.RequestHandler o-- server.db.TestDao : testDao
+    server.db.DatabaseHandler -up-|> server.db.Configs
+    server.db.TestDaoImpl .up.|> server.db.TestDao
+    server.db.TestDaoImpl o-- server.db.DatabaseHandler : databaseHandler
+
+@enduml

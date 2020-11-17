@@ -1,0 +1,93 @@
+@startuml
+
+title __Диаграмма классов Сервер__\n
+
+  namespace server {
+    class server.Main {
+        {static} + main()
+    }
+    class server.RequestHandler {
+            - gson : Gson
+            - id : long
+            - reader : DataInputStream
+            - socket : Socket
+            - writer : DataOutputStream
+            + RequestHandler()
+            + getId()
+            + run()
+            - getResult()
+            - getTest()
+            - sendResults()
+            - sendTests()
+    }
+    class server.RequestListener {
+            - clients : ArrayList<RequestHandler>
+            - socket : ServerSocket
+            + RequestListener()
+            + removeClient()
+            + run()
+            - makeID()
+    }
+    namespace db {
+      class server.db.Configs {
+              # dbHost : String
+              # dbName : String
+              # dbPass : String
+              # dbPort : String
+              # dbUser : String
+      }
+      class server.db.Const {
+                {static} + QUESTIONS_BY_TEST : String
+                {static} + QUESTIONS_TABLE : String
+                {static} + QUESTION_CORRECT : String
+                {static} + QUESTION_ID : String
+                {static} + QUESTION_ID_TEST : String
+                {static} + QUESTION_POST : String
+                {static} + QUESTION_TEXT : String
+                {static} + QUESTION_VARIANT1 : String
+                {static} + QUESTION_VARIANT2 : String
+                {static} + QUESTION_VARIANT3 : String
+                {static} + QUESTION_VARIANT4 : String
+                {static} + RESULTS_GET_ALL : String
+                {static} + RESULTS_TABLE : String
+                {static} + RESULT_DATE : String
+                {static} + RESULT_ID : String
+                {static} + RESULT_ID_TEST : String
+                {static} + RESULT_PERSON : String
+                {static} + RESULT_POST : String
+                {static} + RESULT_RESULT : String
+                {static} + TESTS_GET_ALL : String
+                {static} + TESTS_TABLE : String
+                {static} + TEST_ID : String
+                {static} + TEST_MAX_ID : String
+                {static} + TEST_POST : String
+                {static} + TEST_SUBJECT : String
+      }
+      class server.db.DatabaseHandler {
+        + getConnection()
+      }
+      interface server.db.TestDao {
+                {abstract} + getResults()
+                {abstract} + getTests()
+                {abstract} + postResult()
+                {abstract} + postTest()
+      }
+      class server.db.TestDaoImpl {
+                + getResults()
+                + getTests()
+                + postResult()
+                + postTest()
+                - getTest()
+                - getTestQuestions()
+      }
+    }
+  }
+
+  server.Main  o-- server.RequestListener : server
+  server.RequestHandler o-- server.RequestListener : server
+  server.RequestHandler o-- server.db.TestDao : testDao
+  server.db.DatabaseHandler -up-|> server.db.Configs
+  server.db.TestDaoImpl .up.|> server.db.TestDao
+  server.db.TestDaoImpl o-- server.db.DatabaseHandler : databaseHandler
+
+@enduml
